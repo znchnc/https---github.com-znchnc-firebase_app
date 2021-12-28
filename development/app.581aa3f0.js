@@ -28142,10 +28142,8 @@ passwordInput.addEventListener('input', function (event) {
 });
 buttonConfirm.addEventListener('click', function (event) {
   if (user.email && user.password) {
-    console.log(user); // writeUserData(user.password, user.email)
-
-    (0, _auth.createUserWithEmailAndPassword)();
-    var auth = (0, _auth.getAuth)();
+    console.log(user);
+    createUser(user);
   } else {
     console.log('no');
   }
@@ -28183,33 +28181,18 @@ function _getUsers() {
   return _getUsers.apply(this, arguments);
 }
 
-(0, _auth.createUserWithEmailAndPassword)(email, password).then(function (userCredential) {
-  // Signed in 
-  var user = userCredential.user; // ...
-}).catch(function (error) {
-  var errorCode = error.code;
-  var errorMessage = error.message; // ..
-}); // function writeUserData(password, email) {
-//   firestore.database().set({
-//     email: user.email,
-//     password: user.password
-//   });
-// }
-// function signUpWithEmailPassword() {
-//   console.log('zashlo');
-//   firebase.auth().createUserWithEmailAndPassword(email, password)
-//     .then((userCredential) => {
-//       let usersValue = userCredential.user;
-//       // Signed in 
-//       console.log('zashlo i otpravilos');
-//       // ...
-//     })
-//     .catch((error) => {
-//       let errorCode = error.code;
-//       let errorMessage = error.message;
-//       // ..
-//     });
-// }
+var createUser = function createUser(user) {
+  var auth = (0, _auth.getAuth)(app);
+  (0, _auth.createUserWithEmailAndPassword)(auth, user.email, user.password).then(function (userCredential) {
+    // Signed in 
+    console.log(userCredential); // console.log(user)
+    // ...
+  }).catch(function (error) {
+    console.log(error);
+    var errorCode = error.code;
+    var errorMessage = error.message; // ..
+  });
+};
 },{"@babel/runtime-corejs2/helpers/asyncToGenerator":"../node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js","@babel/runtime-corejs2/regenerator":"../node_modules/@babel/runtime-corejs2/regenerator/index.js","firebase/app":"../node_modules/firebase/app/dist/index.esm.js","firebase/firestore/lite":"../node_modules/firebase/firestore/lite/dist/index.esm.js","firebase/auth":"../node_modules/firebase/auth/dist/index.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -28238,7 +28221,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55787" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52535" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

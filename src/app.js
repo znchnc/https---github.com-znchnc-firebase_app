@@ -4,7 +4,6 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 // require('firebase/auth')
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyAqpypVh75V_xqIsYGZAo6owJQbadrZCvw",
   authDomain: "fckng-prj.firebaseapp.com",
@@ -19,9 +18,7 @@ const db = getFirestore(app);
 
 getUsers(db);
 
-
 // const defaultAuth =  firebase.firestore().auth();
-
 //
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -51,9 +48,7 @@ passwordInput.addEventListener('input', (event) => {
 buttonConfirm.addEventListener('click', (event) =>{
   if (user.email && user.password) {
     console.log(user)
-    // writeUserData(user.password, user.email)
-    createUserWithEmailAndPassword()
-    const auth = getAuth();
+    createUser(user);    
   } else {
     console.log('no')
   }
@@ -66,45 +61,19 @@ async function getUsers(db) {
   console.log(usersList);
 }
 
-
-createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-
-
-
-
-
-
-
-
-// function writeUserData(password, email) {
-//   firestore.database().set({
-//     email: user.email,
-//     password: user.password
-//   });
-// }
-
-// function signUpWithEmailPassword() {
-//   console.log('zashlo');
-//   firebase.auth().createUserWithEmailAndPassword(email, password)
-//     .then((userCredential) => {
-//       let usersValue = userCredential.user;
-//       // Signed in 
-//       console.log('zashlo i otpravilos');
-//       // ...
-//     })
-//     .catch((error) => {
-//       let errorCode = error.code;
-//       let errorMessage = error.message;
-//       // ..
-//     });
-// }
+const createUser = (user) => {
+  const auth = getAuth(app);
+  createUserWithEmailAndPassword(auth, user.email, user.password)
+    .then((userCredential) => {
+      // Signed in 
+      console.log(userCredential)
+      // console.log(user)
+      // ...
+    })
+    .catch((error) => {
+      console.log(error)
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+}
